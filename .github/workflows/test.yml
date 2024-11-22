@@ -1,0 +1,46 @@
+name: Playwright Tests with Cucumber and Firefox
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: playwright-framework
+
+      - name: Install Playwright and Firefox
+        run: |
+          npm install playwright
+          npx playwright install firefox
+        working-directory: playwright-framework
+
+      - name: Run Playwright Cucumber tests
+        run: |
+          npm run test:firefox
+        working-directory: playwright-framework
+
+      - name: Generate HTML Report
+        run: |
+          node report_firefox .js
+        working-directory: playwright-framework
+        if: always()  # This ensures the report is generated even if previous steps fail
+
+      - name: Upload HTML Report as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cucumber-report
+          path: ./playwright-framework/reports/firefox-cucumber-report.html
+        if: always()  # This ensures the report is uploaded even if previous steps fail

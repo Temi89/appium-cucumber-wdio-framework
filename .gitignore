@@ -1,0 +1,6 @@
+node_modules
+reports
+./.idea
+playwirght-framework/screenshots
+playwirght-framework/reports
+playwirght-framework/node_modules
