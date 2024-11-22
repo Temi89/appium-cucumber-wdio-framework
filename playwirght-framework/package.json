@@ -1,0 +1,23 @@
+{
+  "name": "playwirght-framework",
+  "version": "1.0.0",
+  "main": "cucumber.js",
+  "scripts": {
+    "test:firefox": "BROWSER=firefox cucumber-js",
+    "test:chromium": "BROWSER=chromium cucumber-js",
+    "test:webkit": "BROWSER=webkit cucumber-js",
+    "generate:combined-report": "node report.js",
+    "test:all": "npm-run-all -p --continue-on-error  test:chromium test:firefox test:webkit",
+    "test:all:report": "npm run test:all && npm run generate:combined-report"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@cucumber/cucumber": "^10.8.0",
+    "@playwright/test": "^1.44.1",
+    "cucumber-html-reporter": "^7.2.0",
+    "dotenv": "^16.4.5",
+    "npm-run-all": "^4.1.5",
+    "playwright": "^1.44.1"
+  }
+}
